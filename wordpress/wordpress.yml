@@ -6,7 +6,8 @@ services:
       args:
        PHP_VERSION: ${PHP_VERSION}
     networks:
-      - backend
+      mynet:
+        ipv4_address: 
     volumes:
       - ${PROJECT_ROOT}/:/var/www/html/
     container_name: php
@@ -18,11 +19,8 @@ services:
     depends_on:
       - php
       - mysql
-    networks:
-      - frontend
-      - backend
     ports:
-      - "8080:8081"
+      - "80:80"
     volumes:
       - ${PROJECT_ROOT}/:/var/www/html/
     container_name: apache
@@ -33,8 +31,6 @@ services:
       - "3306:3306"
     volumes:
             - data:/var/lib/mysql
-    networks:
-      - backend
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
       MYSQL_DATABASE: "${DB_NAME}"
@@ -42,7 +38,11 @@ services:
       MYSQL_PASSWORD: "${DB_PASSWORD}"
     container_name: mysql
 networks:
-  frontend:
-  backend:
+  mynet:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: ${SUBNET}
+         gateway: ${GATEWAY}
 volumes:
-    data:
+  data:```
