@@ -6,12 +6,7 @@ services:
       args:
        PHP_VERSION: ${PHP_VERSION}
     networks:
-  mynet:
-    driver: bridge
-    ipam:
-     config:
-       - subnet: ${SUBNET}
-         gateway: ${GATEWAY}
+      - backend
     volumes:
       - ${PROJECT_ROOT}/:/var/www/html/
     container_name: php-login
@@ -29,7 +24,7 @@ services:
       - ${PROJECT_ROOT}/:/var/www/html/
     container_name: apache-login
   mysql:
-    image: mysql:${MYSQL_VERSION:-latest}
+    image: mysql:${MYSQL_VERSION}
     restart: always
     ports:
       - "3306:3306"

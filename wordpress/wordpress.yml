@@ -6,8 +6,7 @@ services:
       args:
        PHP_VERSION: ${PHP_VERSION}
     networks:
-      mynet:
-        ipv4_address: 
+      - backend
     volumes:
       - ${PROJECT_ROOT}/:/var/www/html/
     container_name: php
@@ -24,25 +23,3 @@ services:
     volumes:
       - ${PROJECT_ROOT}/:/var/www/html/
     container_name: apache
-  mysql:
-    image: mysql:${MYSQL_VERSION:-latest}
-    restart: always
-    ports:
-      - "3306:3306"
-    volumes:
-            - data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
-      MYSQL_DATABASE: "${DB_NAME}"
-      MYSQL_USER: "${DB_USERNAME}"
-      MYSQL_PASSWORD: "${DB_PASSWORD}"
-    container_name: mysql
-networks:
-  mynet:
-    driver: bridge
-    ipam:
-     config:
-       - subnet: ${SUBNET}
-         gateway: ${GATEWAY}
-volumes:
-  data:```
