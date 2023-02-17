@@ -24,7 +24,7 @@ services:
       - ${PROJECT_ROOT}/:/var/www/html/
     container_name: apache-login
   mysql:
-    image: mysql:${MYSQL_VERSION}
+    image: mysql:${MYSQL_VERSION:-latest}
     restart: always
     ports:
       - "3306:3306"
@@ -35,5 +35,9 @@ services:
       MYSQL_DATABASE: "${DB_NAME}"
       MYSQL_USER: "${DB_USERNAME}"
       MYSQL_PASSWORD: "${DB_PASSWORD}"
-    container_name: mysql-login
-
+    container_name: mysql
+networks:
+  frontend:
+  backend:
+volumes:
+    data:
