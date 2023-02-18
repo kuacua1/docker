@@ -6,7 +6,7 @@ services:
       args:
        PHP_VERSION: ${PHP_VERSION}
     networks:
-      - backend:
+      - backend
     volumes:
       - ${PROJECT_ROOT}/:/var/www/html/
     container_name: php-register
