@@ -17,7 +17,6 @@ services:
        APACHE_VERSION: ${APACHE_VERSION}
     depends_on:
       - php
-      - mysql
     ports:
       - "8081:80"
     volumes:
